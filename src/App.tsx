@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getLatestLaunches } from "./api/launches";
 import Header from "./components/Header";
 import "ag-grid-community/styles/ag-grid.css";
@@ -26,13 +26,15 @@ const AppBackground = styled.div`
 
 function App() {
   const [launches, setLaunches] = useState<Launch[]>([]);
+  const allLaunches = useRef<Launch[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   useEffect(() => {
     (async () => {
       try {
-        const allLaunches = await getLatestLaunches(NUMBER_OF_LAUNCHES);
-        setLaunches(allLaunches);
+        const responseData = await getLatestLaunches(NUMBER_OF_LAUNCHES);
+        allLaunches.current = responseData;
+        setLaunches(responseData);
         setLoading(false);
       } catch {
         setError("Failed to retrieve recent launches");
@@ -40,9 +42,19 @@ function App() {
       }
     })();
   }, []);
+
+  const onSearch = useCallback((query: string) => {
+    const queryToLowerCase = query.toLowerCase();
+    const filteredLaunches = allLaunches.current.filter((launch) => {
+      const launchName = launch.mission_name.toLowerCase();
+      return launchName.includes(queryToLowerCase);
+    });
+    setLaunches(filteredLaunches);
+  }, []);
+
   return (
     <AppBackground data-testid="app-container">
-      <Header onSearch={() => null} />
+      <Header onSearch={onSearch} />
       <Box
         sx={{
           m: 2,
@@ -58,18 +70,23 @@ function App() {
             {error}
           </Alert>
         )}
-        {!loading && (
-          <Box
-            id="launchGrid"
-            className="ag-theme-alpine-dark"
-            sx={{
-              flex: 1,
-              width: "100%",
-            }}
-          >
-            <DataGrid rowData={launches} />
-          </Box>
-        )}
+        {!loading &&
+          (launches.length ? (
+            <Box
+              id="launchGrid"
+              className="ag-theme-alpine-dark"
+              sx={{
+                flex: 1,
+                width: "100%",
+              }}
+            >
+              <DataGrid rowData={launches} />
+            </Box>
+          ) : allLaunches.current.length ? (
+            "No launches were found for your search term"
+          ) : (
+            "No launches were found"
+          ))}
       </Box>
     </AppBackground>
   );
