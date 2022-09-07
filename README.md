@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+## SpaceX Recent Launches
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An application to allow users to view the most recent 50 SpaceX launches.
 
-## Available Scripts
+The user can click the rocket icon to view the rocket details for that launch. They can also use the search input to filter the launches by launch name.
 
-In the project directory, you can run:
+## Project Screen Shot(s)
 
-### `npm start`
+![Screenshot](screenshots/latest_launches.png)
+![Screenshot](screenshots/rocket_details.png)
+![Screenshot](screenshots/search_launch.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation and Setup Instructions
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Firstly, clone this repository. You will need `node` and `npm` installed globally on your machine.
 
-### `npm test`
+Installation:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`npm install`
 
-### `npm run build`
+To Run Test Suite:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npm test`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To Start Server:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm start`
 
-### `npm run eject`
+To Visit App:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`localhost:3000/`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Reflection
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This application was built with `create-react-app`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The frontend is split between UI and an API layer. The API layer manages any interactions with the backend and allows us to decouple our network requests and their responses from our UI components. Currently the API layer pulls down all 50 launches and then all the functionality is handled client side (such as filtering, sorting and displaying rocket details).
 
-## Learn More
+The UI layer contains all our components. Majority of the components used are from the `Material UI` library including all icons but there are also some custom components that have been styled using `emotion`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Automated test coverage has been provided using `jest` with `testing-library`.
