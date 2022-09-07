@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { ReactNode } from "react";
 import Heading from "./Heading";
 import Section from "./Section";
