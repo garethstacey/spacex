@@ -34,8 +34,8 @@ To Visit App:
 
 This application was built with `create-react-app`.
 
-The frontend is split between UI and an API layer. The API layer manages any interactions with the backend and allows us to decouple our network requests and their responses from our UI components. Currently the API layer pulls down all 50 launches and then all the functionality is handled client side (such as filtering, sorting and displaying rocket details).
+The frontend is split between UI and an API layer. Currently the API layer pulls down all 50 launches and then all the functionality is handled client side (such as filtering, sorting and displaying rocket details).
 
 The UI layer contains all our components. Majority of the components used are from the `Material UI` library including all icons but there are also some custom components that have been styled using `emotion`.
 
-Automated test coverage has been provided using `jest` with `testing-library`.
+Automated test coverage has been provided using `jest` with `react-testing-library`.
